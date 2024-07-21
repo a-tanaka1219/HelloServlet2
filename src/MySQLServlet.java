@@ -38,7 +38,7 @@ public class MySQLServlet extends HttpServlet {
 		out.println("<body>");
 
 		Connection conn = null;
-		String url ="jdbc:mysql://localhost/testdb";
+		String url ="jdbc:mysql://localhost/testdb?autoReconnect=true&useSSL=false";
 		String user ="root";
 		String password="root";
 
@@ -47,7 +47,7 @@ public class MySQLServlet extends HttpServlet {
 				conn = DriverManager.getConnection(url,user,password);
 
 			Statement stmt = conn.createStatement();
-			String sql = "SELECT * FORM test_table";
+			String sql = "SELECT * FROM test_table";
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while(rs.next()){
@@ -66,6 +66,12 @@ public class MySQLServlet extends HttpServlet {
 		out.println("ClassNotFoundException:"+e.getMessage());
 	}catch(SQLException e){
 		out.println("SQLException:"+ e.getMessage());
+	} catch (InstantiationException e) {
+		// TODO 自動生成された catch ブロック
+		e.printStackTrace();
+	} catch (IllegalAccessException e) {
+		// TODO 自動生成された catch ブロック
+		e.printStackTrace();
 	}finally{
 		try{
 			if(conn != null){
